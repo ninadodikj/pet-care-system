@@ -10,6 +10,27 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
 
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5434/${{ secrets.POSTGRES_DB }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.POSTGRES_USER }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
+    services:
+      postgres:
+        image: postgres:17.4
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5434:5432
+        options: >-
+          --health-cmd "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
