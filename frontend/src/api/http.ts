@@ -6,8 +6,7 @@ export const http = axios.create({
   baseURL: BASE_URL,
 });
 
-// Every request automatically carries the JWT from localStorage —
-// exactly the "Authorization: Bearer <token>" header JwtFilter expects.
+
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token && config.headers) {
@@ -16,8 +15,7 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
-// If the token is invalid/expired (401), clear it and send the user
-// back to login instead of showing a broken page.
+
 http.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {

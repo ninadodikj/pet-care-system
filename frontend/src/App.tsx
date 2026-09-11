@@ -17,8 +17,7 @@ function Root() {
 
   if (loading) return <p className="loading-text">Loading...</p>;
 
-  // Logged-in visitors get sent straight to their dashboard;
-  // everyone else sees the welcome/landing page.
+
   if (isAuthenticated) {
     if (isOwner) return <Navigate to="/pets" replace />;
     if (isVet) return <Navigate to="/appointments" replace />;
@@ -37,7 +36,6 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* Owner-only */}
         <Route
           path="/pets"
           element={
@@ -79,7 +77,6 @@ export default function App() {
           }
         />
 
-        {/* Shared between owner and vet — the page adapts by role */}
         <Route
           path="/appointments"
           element={
