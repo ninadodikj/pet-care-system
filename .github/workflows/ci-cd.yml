@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: CI/CD Pipeline
 
 on:
   push:
@@ -80,3 +80,7 @@ jobs:
           context: ./frontend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pet-care-frontend:latest
+
+      - name: Deploy backend to Render
+        run: curl -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+
