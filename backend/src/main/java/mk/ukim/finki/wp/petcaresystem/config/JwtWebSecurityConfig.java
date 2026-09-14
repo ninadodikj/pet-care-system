@@ -33,7 +33,7 @@ public class JwtWebSecurityConfig {
         corsConfiguration.setAllowedOriginPatterns(
                 List.of(
                         "http://localhost:*",
-                        "https://pet-care-backend-bdg6.onrender.com"
+                        "https://pet-care-frontend-b4cg.onrender.com"
                 )
         );
 
